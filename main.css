@@ -1,0 +1,122 @@
+/* .minetip-text {
+	border-bottom: 1px dotted #0077AA;
+	cursor: help;
+} */
+
+body {
+	padding: 20%;
+}
+
+.minetip-text::after {
+	border: 1px solid #AAA;
+	border-radius: 2px;
+	background-color: #FFF;
+	box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+	/* margin-top: -14px; */
+	margin-left: -21px;
+	padding: 0.5em 0.8em;
+	font-size: smaller;
+	min-width: 20px;
+	max-width: 300px;
+	word-wrap: break-word;
+	color: #FFF;
+	content: attr(data-minetip-text);
+	opacity: 0;
+	position: absolute;
+	visibility: hidden;
+	transition: all 0.05s ease-in-out;
+	margin-top: -29px;
+	font-size: 0.875em;
+	z-index: 9999
+}
+
+.minetip-text:hover::after {
+	opacity: 1;
+	visibility: visible;
+}
+
+.ref-tooltip {
+	position: absolute;
+	margin-top: -29px;
+	font-size: 0.875em;
+	z-index: 9999
+}
+
+.ref-tooltip-text {
+	border: 1px solid #AAA;
+	border-radius: 2px;
+	background-color: #FFF;
+	box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+	margin-top: -14px;
+	margin-left: -21px;
+	padding: 0.5em 0.8em;
+	font-size: smaller;
+	min-width: 20px;
+	max-width: 300px;
+	word-wrap: break-word
+}
+
+.ref-tooltip-arrow,
+.ref-tooltip-arrow:before,
+.ref-tooltip-arrow:after {
+	content: \"\";
+	position: absolute;
+	bottom: -9px;
+	left: -9px;
+	border: 10px solid;
+	border-color: #888 transparent;
+	border-bottom-style: none;
+	width: 0;
+	height: 0
+}
+
+.ref-tooltip-arrow:before {
+	bottom: -3px;
+	left: -10px;
+	border-color: rgba(0, 0, 0, 0.15) transparent
+}
+
+.ref-tooltip-arrow:after {
+	bottom: 1px;
+	left: -9px;
+	border-color: #FFF transparent;
+	border-width: 9px
+}
+
+.ref-tooltip-flipped \u003E .ref-tooltip-arrow,
+.ref-tooltip-flipped \u003E .ref-tooltip-arrow:after {
+	bottom: auto;
+	border-top-style: none;
+	border-bottom-style: solid
+}
+
+.ref-tooltip-flipped \u003E .ref-tooltip-arrow {
+	top: 4px
+}
+
+.ref-tooltip-flipped \u003E .ref-tooltip-arrow:before {
+	content: none
+}
+
+.ref-tooltip-flipped \u003E .ref-tooltip-arrow:after {
+	top: 1px
+}
+
+.ref-tooltip-options-button {
+	display: inline-block;
+	font: inherit;
+	float: right;
+	-webkit-appearance: none;
+	border: none;
+	outline: none;
+	background: url(https://minecraft.gamepedia.com/media/minecraft.gamepedia.com/e/e0/Reference_options.png) no-repeat;
+	margin: 0.3em 0 0 0.5em;
+	width: 16px;
+	height: 16px;
+	cursor: pointer
+}
+
+.ref-tooltip-text .ref-tooltip-options-button {
+	margin-top: -0.1em;
+	margin-right: -0.3em
+}
