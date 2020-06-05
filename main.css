@@ -1,24 +1,25 @@
-/* .minetip-text {
-	border-bottom: 1px dotted #0077AA;
-	cursor: help;
-} */
-@font-face {
-    font-family: 'Minecraft Rus';
-    src: url('Minecraft.eot');
-    src: local('Minecraft Rus Regular'), local('Minecraft'),
-        url('Minecraft.eot?#iefix') format('embedded-opentype'),
-        url('Minecraft.woff2') format('woff2'),
-        url('Minecraft.woff') format('woff'),
-        url('Minecraft.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-.minetip { 
-    font-family: "Minecraft Rus";
-}
+/* WIP */
 body {
 	padding: 10%;
 }
+
+/* MAIN */
+@font-face {
+	font-family: 'Minecraft Rus';
+	src: url('static/font/Minecraft.eot');
+	src: local('Minecraft Rus Regular'), local('Minecraft'),
+		url('static/font/Minecraft.eot?#iefix') format('embedded-opentype'),
+		url('static/font/Minecraft.woff2') format('woff2'),
+		url('static/font/Minecraft.woff') format('woff'),
+		url('static/font/Minecraft.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.minetip {
+	font-family: "Minecraft Rus";
+}
+
 
 span.minetip img {
 	-ms-interpolation-mode: nearest-neighbor;
@@ -30,11 +31,7 @@ span.minetip img {
 
 span.minetip div {
 	margin-left: 20px;
-	/* margin-bottom: 0.4em; */
 	padding: 0.5em;
-	/* border-radius: 21%; */
-	/* border: 3px solid #2E0A65; */
-	
 	border: 6px solid transparent;
 	border-radius: 12px;
 	border-image: url(static/img/tooltip-border.png) 30% repeat;
@@ -47,25 +44,3 @@ span.minetip div {
 	opacity: .95;
 	/* box-shadow:0 2px 0 rgba(0, 0, 0, 0.15); */
 }
-
-/* .minetip-text::after {
-	border: 1px solid #AAA;
-	border-radius: 2px;
-	background-color: #FFF;
-	box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
-	margin-left: -21px;
-	padding: 0.5em 0.8em;
-	font-size: smaller;
-	min-width: 20px;
-	max-width: 300px;
-	word-wrap: break-word;
-	color: #FFF;
-	content: attr(data-minetip-text);
-	opacity: 0;
-	position: absolute;
-	visibility: hidden;
-	transition: all 0.05s ease-in-out;
-	margin-top: -29px;
-	font-size: 0.875em;
-	z-index: 9999
-} */
