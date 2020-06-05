@@ -2,11 +2,10 @@ window.addEventListener("load", function () {
 
     var minetip;
     var Xoffset = 20;
-    var Yoffset;
+    var Yoffset = 40;
 
     function handler(event) {
         minetip = event.currentTarget.querySelector("div");
-        Yoffset = minetip.offsetHeight * 0.25;
         if (event.type == "mousemove" || event.type == "mouseover") {
             minetip.style.display = "block";
             if (window.innerWidth < event.pageX + Xoffset + minetip.offsetWidth) {
