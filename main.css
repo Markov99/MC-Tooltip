@@ -38,10 +38,8 @@ span.minetip div {
 	border-image: url(static/img/tooltip-border.png) 30% repeat;
 	color: #FFF;
 	background-color: #1E0F1E;
-	/* background-color: yellowgreen; */
 	position: absolute;
 	z-index: 999;
 	display: none;
 	opacity: .95;
-	/* box-shadow:0 2px 0 rgba(0, 0, 0, 0.15); */
 }
