@@ -5,7 +5,9 @@ window.addEventListener("load", function () {
         config["data-offset-x"] = parseInt(config["data-offset-x"]);
         config["data-offset-y"] = parseInt(config["data-offset-y"]);
         return function (event) {
+            /* jshint ignore:start */
             return eval("var config=" + JSON.stringify(config) + ";" + handler_base);
+            /* jshint ignore:end */
         };
     }
 
@@ -21,28 +23,46 @@ window.addEventListener("load", function () {
         "data-offset-y": 40,
     };
 
-    var i, j, k;
+    var a, b, c, d; //counters for loops
     var minetips;
     var config_event = {};
-    var attributes;
+    var config_load = {};
+    var config_attributes;
+    var image_attributes;
     var handler;
     var configs = document.querySelectorAll("span.minetips");
-    for (i = 0; i < configs.length; i++) {
-        minetips = configs[i].querySelectorAll("span.minetip");
-        for (j = 0; j < minetips.length; j++) {
-            attributes = minetips[j].parentElement.attributes;
+    for (a = 0; a < configs.length; a++) {
+        minetips = configs[a].querySelectorAll("span.minetip");
+        for (b = 0; b < minetips.length; b++) {
+            config_attributes = minetips[b].parentElement.attributes;
+            minetip_images = minetips[b].querySelectorAll("img");
             config_event = {};
-            for (k in default_config_event) {
-                if (attributes.hasOwnProperty(k)) {
-                    config_event[k] = attributes[k].value;
+            for (c in default_config_event) {
+                if (config_attributes.hasOwnProperty(c)) {
+                    config_event[c] = config_attributes[c].value;
                 } else {
-                    config_event[k] = default_config_event[k];
+                    config_event[c] = default_config_event[c];
                 }
             }
+            for (c = 0; c < minetip_images.length; c++) {
+                image_attributes = minetip_images[c].attributes;
+                config_load = {};
+                for (d in default_config_load) {
+                    if (image_attributes.hasOwnProperty(d.replace("data-img-", ""))) {
+                        config_load[d] = image_attributes[d.replace("data-img-", "")].value;
+                    } else if (config_attributes.hasOwnProperty(d)) {
+                        config_load[d] = config_attributes[d].value;
+                    } else {
+                        config_load[d] = default_config_load[d];
+                    }
+                }
+                console.log(config_load);
+            }
+            // apply default_config_load
             handler = create_handler(config_event);
-            minetips[j].addEventListener("mouseover", handler);
-            minetips[j].addEventListener("mouseout", handler);
-            minetips[j].addEventListener("mousemove", handler);
+            minetips[b].addEventListener("mouseover", handler);
+            minetips[b].addEventListener("mouseout", handler);
+            minetips[b].addEventListener("mousemove", handler);
         }
     }
 });
