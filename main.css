@@ -42,4 +42,5 @@ span.minetip div {
 	z-index: 999;
 	display: none;
 	opacity: .95;
+	pointer-events: none;
 }
