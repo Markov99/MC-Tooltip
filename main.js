@@ -1,4 +1,26 @@
+/*jshint esversion: 6 */
 window.addEventListener("load", function () {
+
+    function clone_simple_object(object) {
+        return JSON.parse(JSON.stringify(object));
+    }
+
+    function update_simple_dict(obj, ...arguments) {
+        for (var i = 1; i < arguments.length; i++) {
+            for (var prop in arguments[i]) {
+                var val = arguments[i][prop];
+                if (typeof val == "object") // this also applies to arrays or null!
+                    update_dict(obj[prop], val);
+                else
+                    obj[prop] = val;
+            }
+        }
+        return obj;
+    }
+
+    function eventHandler(event) {
+        return handler(event, event_config);
+    }
 
     function handler(event, config) {
         minetip = event.currentTarget.querySelector("div");
@@ -19,43 +41,36 @@ window.addEventListener("load", function () {
         }
     }
 
-    // for (i = 0; i < config.length; i++) {
-    //     // let t = configs[i].getAttribute("data-img-width");
-    //     // console.log(t);
-    //     // t = configs[i].getAttribute("data-img-height");
-    //     // console.log(t);
-    //     // t = configs[i].getAttribute("data-img-alt");
-    //     // console.log(t);
-    // }
+    var default_load_config = {
+        img_width: "32px",
+        img_height: "32px",
+        img_alt: "*image*",
+    };
+    var default_event_config = {
+        Xoffset: 20,
+        Yoffset: 40,
+    };
 
     var i, j;
     var minetip;
-    var default_config = {
-        load: {
-            Xoffset: 20,
-            Yoffset: 40,
-        },
-        event: {
-            Xoffset: 20,
-            Yoffset: 40,
-        },
-    };
-
+    var minetips;
+    var load_config;
+    var event_config;
     var configs = document.querySelectorAll("span.minetips");
-    var minetips = configs.querySelectorAll("span.minetip");
-    var config;
     for (i = 0; i < configs.length; i++) {
+        minetips = configs[i].querySelectorAll("span.minetip");
         for (j = 0; j < minetips.length; j++) {
-            minetips[j].addEventListener("mouseover", function (event) {
-                return handler(event, config.event);
+            load_config = clone_simple_object(default_load_config);
+            event_config = clone_simple_object(default_event_config);
+            update_simple_dict(load_config, {
+                
             });
-            minetips[j].addEventListener("mouseout", function (event) {
-                return handler(event, config.event);
+            update_simple_dict(event_config, {
+
             });
-            minetips[j].addEventListener("mousemove", function (event) {
-                return handler(event, config.event);
-            });
+            minetips[j].addEventListener("mouseover", eventHandler);
+            minetips[j].addEventListener("mouseout", eventHandler);
+            minetips[j].addEventListener("mousemove", eventHandler);
         }
     }
-
 });
