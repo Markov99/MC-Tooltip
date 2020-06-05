@@ -2,30 +2,51 @@
 	border-bottom: 1px dotted #0077AA;
 	cursor: help;
 } */
-
+@font-face {
+    font-family: 'Minecraft Rus';
+    src: url('Minecraft.eot');
+    src: local('Minecraft Rus Regular'), local('Minecraft'),
+        url('Minecraft.eot?#iefix') format('embedded-opentype'),
+        url('Minecraft.woff2') format('woff2'),
+        url('Minecraft.woff') format('woff'),
+        url('Minecraft.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+.minetip { 
+    font-family: "Minecraft Rus";
+}
 body {
 	padding: 10%;
 }
 
-div.minetip {
-	border: 1px solid #fda11f;
-	color: #162699;
-	background-color: #16bbb9;
+span.minetip img {
+	-ms-interpolation-mode: nearest-neighbor;
+	image-rendering: crisp-edges;
+	image-rendering: pixelated;
+	width: 64px;
+	height: 64px;
 }
 
-
-.minetip::before {
-
+span.minetip div {
+	margin-left: 20px;
+	/* margin-bottom: 0.4em; */
+	padding: 0.5em;
+	/* border-radius: 21%; */
+	/* border: 3px solid #2E0A65; */
+	
+	border: 6px solid transparent;
+	border-radius: 12px;
+	border-image: url(static/img/tooltip-border.png) 30% repeat;
+	color: #FFF;
+	background-color: #1E0F1E;
+	/* background-color: yellowgreen; */
+	position: absolute;
+	z-index: 999;
+	display: none;
+	opacity: .95;
+	/* box-shadow:0 2px 0 rgba(0, 0, 0, 0.15); */
 }
-.minetip::after {
-
-}
-
-.minetip img {
-
-}
-
-
 
 /* .minetip-text::after {
 	border: 1px solid #AAA;
