@@ -13,10 +13,11 @@ window.addEventListener("load", function () {
 
     const handler_base = 'minetip=event.currentTarget.querySelector("div");if(event.type=="mousemove"||event.type=="mouseover"){minetip.style.display="block";if(window.innerWidth<event.pageX+config["data-offset-x"]+minetip.offsetWidth){minetip.style.left=event.pageX-config["data-offset-x"]-minetip.offsetWidth+"px"}else{minetip.style.left=event.pageX+config["data-offset-x"]+"px"}if(window.innerHeight<event.pageY-config["data-offset-y"]+minetip.offsetHeight){minetip.style.top=event.pageY-(event.pageY+minetip.offsetHeight-window.innerHeight)+"px"}else{minetip.style.top=event.pageY-config["data-offset-y"]+"px"}}else if(event.type=="mouseout"){minetip.style.display="none"}';
 
-    const default_config_load = {
+    const default_config_load_img = {
         "data-img-width": "32px",
         "data-img-height": "32px",
         "data-img-alt": "*image*",
+        "data-img-src": "wip/tooltip-test.png",
     };
     const default_config_event = {
         "data-offset-x": 20,
@@ -26,7 +27,7 @@ window.addEventListener("load", function () {
     var a, b, c, d; //counters for loops
     var minetips;
     var config_event = {};
-    var config_load = {};
+    var config_load_img = {};
     var config_attributes;
     var image_attributes;
     var handler;
@@ -46,19 +47,22 @@ window.addEventListener("load", function () {
             }
             for (c = 0; c < minetip_images.length; c++) {
                 image_attributes = minetip_images[c].attributes;
-                config_load = {};
-                for (d in default_config_load) {
+                config_load_img = {};
+                for (d in default_config_load_img) {
                     if (image_attributes.hasOwnProperty(d.replace("data-img-", ""))) {
-                        config_load[d] = image_attributes[d.replace("data-img-", "")].value;
+                        config_load_img[d] = image_attributes[d.replace("data-img-", "")].value;
                     } else if (config_attributes.hasOwnProperty(d)) {
-                        config_load[d] = config_attributes[d].value;
+                        config_load_img[d] = config_attributes[d].value;
                     } else {
-                        config_load[d] = default_config_load[d];
+                        config_load_img[d] = default_config_load_img[d];
                     }
                 }
-                console.log(config_load);
+                for (d in config_load_img) {
+                    if (config_load_img.hasOwnProperty(d)) {
+                        minetip_images[c].setAttribute(d.replace("data-img-", ""), config_load_img[d]);
+                    }
+                }
             }
-            // apply default_config_load
             handler = create_handler(config_event);
             minetips[b].addEventListener("mouseover", handler);
             minetips[b].addEventListener("mouseout", handler);
