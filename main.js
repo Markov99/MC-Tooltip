@@ -2,18 +2,18 @@
 window.addEventListener("load", function () {
 
     function create_handler(config) {
-        // config["data-offset-x"] = parseInt(config["data-offset-x"]);
-        // config["data-offset-y"] = parseInt(config["data-offset-y"]);
+        config["data-offset-x"] = parseInt(config["data-offset-x"]);
+        config["data-offset-y"] = parseInt(config["data-offset-y"]);
         // let handler = "";
         // console.log(config);
         // handler += "var config=" + JSON.stringify(config) + ";" + window.handler_base;
-        // console.log(handler);
+        console.log("var config=" + JSON.stringify(config) + ";" + window.handler_base);
         return function (event) {
             return eval("var config=" + JSON.stringify(config) + ";" + window.handler_base);
         };
     }
 
-    window.handler_base = 'minetip=event.currentTarget.querySelector("div");if(event.type=="mousemove"||event.type=="mouseover"){minetip.style.display="block";if(window.innerWidth<event.pageX+config["data-offset-x"]+minetip.offsetWidth){minetip.style.left=event.pageX-config["data-offset-x"];config["data-offset-x"]-minetip.offsetWidth+"px"}else{minetip.style.left=event.pageX+config["data-offset-x"];config["data-offset-x"]+"px"}if(window.innerHeight<event.pageY-config["data-offset-y"]+minetip.offsetHeight){minetip.style.top=event.pageY-(event.pageY+minetip.offsetHeight-window.innerHeight)+"px"}else{minetip.style.top=event.pageY-config["data-offset-x"];config["data-offset-y"]+"px"}}else if(event.type=="mouseout"){minetip.style.display="none"}';
+    window.handler_base = 'minetip=event.currentTarget.querySelector("div");if(event.type=="mousemove"||event.type=="mouseover"){minetip.style.display="block";if(window.innerWidth<event.pageX+config["data-offset-x"]+minetip.offsetWidth){minetip.style.left=event.pageX-config["data-offset-x"]-minetip.offsetWidth+"px"}else{minetip.style.left=event.pageX+config["data-offset-x"]+"px"}if(window.innerHeight<event.pageY-config["data-offset-y"]+minetip.offsetHeight){minetip.style.top=event.pageY-(event.pageY+minetip.offsetHeight-window.innerHeight)+"px"}else{minetip.style.top=event.pageY-config["data-offset-y"]+"px"}}else if(event.type=="mouseout"){minetip.style.display="none"}';
 
     window.default_config_load = {
         "data-img-width": "32px",
@@ -38,6 +38,7 @@ window.addEventListener("load", function () {
         minetips = configs[i].querySelectorAll("span.minetip");
         for (j = 0; j < minetips.length; j++) {
             attributes = minetips[j].parentElement.attributes;
+            window.config_event = {};
             for (k in window.default_config_event) {
                 if (attributes.hasOwnProperty(k)) {
                     window.config_event[k] = attributes[k].value;
@@ -45,8 +46,6 @@ window.addEventListener("load", function () {
                     window.config_event[k] = window.default_config_event[k];
                 }
             }
-            // console.log(attributes);
-            // console.log(window.config_event);
             let handler = create_handler(window.config_event);
             minetips[j].addEventListener("mouseover", handler);
             minetips[j].addEventListener("mouseout", handler);
@@ -111,24 +110,44 @@ config["data-offset-y"] + "px";
 }
 
     */
-   var config = {};
+// var config = {};
 
-minetip = event.currentTarget.querySelector("div");
-if (event.type == "mousemove" || event.type == "mouseover") {
-    minetip.style.display = "block";
-    if (window.innerWidth < event.pageX + config["data-offset-x"] config["data-offset-x"] + minetip.offsetWidth) {
-        minetip.style.left = event.pageX - config["data-offset-x"];
-        config["data-offset-x"] - minetip.offsetWidth + "px";
-    } else {
-        minetip.style.left = event.pageX + config["data-offset-x"];
-        config["data-offset-x"] + "px";
-    }
-    if (window.innerHeight < event.pageY - config["data-offset-x"] config["data-offset-y"] + minetip.offsetHeight) {
-        minetip.style.top = event.pageY - (event.pageY + minetip.offsetHeight - window.innerHeight) + "px";
-    } else {
-        minetip.style.top = event.pageY - config["data-offset-x"];
-        config["data-offset-y"] + "px";
-    }
-} else if (event.type == "mouseout") {
-    minetip.style.display = "none";
-}
+// minetip = event.currentTarget.querySelector("div");
+// if (event.type == "mousemove" || event.type == "mouseover") {
+//     minetip.style.display = "block";
+//     if (window.innerWidth < event.pageX + config["data-offset-x"] config["data-offset-x"] + minetip.offsetWidth) {
+//         minetip.style.left = event.pageX - config["data-offset-x"];
+//         config["data-offset-x"] - minetip.offsetWidth + "px";
+//     } else {
+//         minetip.style.left = event.pageX + config["data-offset-x"];
+//         config["data-offset-x"] + "px";
+//     }
+//     if (window.innerHeight < event.pageY - config["data-offset-x"] config["data-offset-y"] + minetip.offsetHeight) {
+//         minetip.style.top = event.pageY - (event.pageY + minetip.offsetHeight - window.innerHeight) + "px";
+//     } else {
+//         minetip.style.top = event.pageY - config["data-offset-x"];
+//         config["data-offset-y"] + "px";
+//     }
+// } else if (event.type == "mouseout") {
+//     minetip.style.display = "none";
+// }
+
+
+
+
+// minetip = event.currentTarget.querySelector("div");
+// if (event.type == "mousemove" || event.type == "mouseover") {
+//     minetip.style.display = "block";
+//     if (window.innerWidth < event.pageX + config["data-offset-x"] + minetip.offsetWidth) {
+//         minetip.style.left = event.pageX - config["data-offset-x"] - minetip.offsetWidth + "px";
+//     } else {
+//         minetip.style.left = event.pageX + config["data-offset-x"] + "px";
+//     }
+//     if (window.innerHeight < event.pageY - config["data-offset-y"] + minetip.offsetHeight) {
+//         minetip.style.top = event.pageY - (event.pageY + minetip.offsetHeight - window.innerHeight) + "px";
+//     } else {
+//         minetip.style.top = event.pageY - config["data-offset-y"] + "px";
+//     }
+// } else if (event.type == "mouseout") {
+//     minetip.style.display = "none";
+// }

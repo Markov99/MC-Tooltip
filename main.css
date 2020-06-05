@@ -1,6 +1,7 @@
 /* TESTING */
 body {
 	padding: 10%;
+	background-image: radial-gradient(circle, #0c643a, #006d6c, #0072ae, #006ade, #7c43d6);
 }
 
 /* MAIN */
