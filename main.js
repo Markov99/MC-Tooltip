@@ -22,50 +22,16 @@ window.addEventListener("load", function () {
     //     return handler(event, window.config_event);
     // }
 
-    function handler(event) {
-        var config = {};
-        config["data-offset-x"] = parseInt(window.config_event["data-offset-x"]);
-        config["data-offset-y"] = parseInt(window.config_event["data-offset-y"]);
+    function create_handler(config) {
+        config["data-offset-x"] = parseInt(config["data-offset-x"]);
+        config["data-offset-y"] = parseInt(config["data-offset-y"]);
+        let handler = "";
 
-        function func(event) {
-            minetip = event.currentTarget.querySelector("div");
-            if (event.type == "mousemove" || event.type == "mouseover") {
-                minetip.style.display = "block";
-                if (window.innerWidth < event.pageX + config["data-offset-x"] + minetip.offsetWidth) {
-                    minetip.style.left = event.pageX - config["data-offset-x"] - minetip.offsetWidth + "px";
-                } else {
-                    minetip.style.left = event.pageX + config["data-offset-x"] + "px";
-                }
-                if (window.innerHeight < event.pageY - config["data-offset-y"] + minetip.offsetHeight) {
-                    minetip.style.top = event.pageY - (event.pageY + minetip.offsetHeight - window.innerHeight) + "px";
-                } else {
-                    minetip.style.top = event.pageY - config["data-offset-y"] + "px";
-                }
-            } else if (event.type == "mouseout") {
-                minetip.style.display = "none";
-            }
-        }
-        return func(event);
+        handler+="var config = "+config+window.handler_base;
+        return (event) => {return eval(handler);};
     }
 
-    // function func(event, config) {
-    //     minetip = event.currentTarget.querySelector("div");
-    //     if (event.type == "mousemove" || event.type == "mouseover") {
-    //         minetip.style.display = "block";
-    //         if (window.innerWidth < event.pageX + config["data-offset-x"] + minetip.offsetWidth) {
-    //             minetip.style.left = event.pageX - config["data-offset-x"] - minetip.offsetWidth + "px";
-    //         } else {
-    //             minetip.style.left = event.pageX + config["data-offset-x"] + "px";
-    //         }
-    //         if (window.innerHeight < event.pageY - config["data-offset-y"] + minetip.offsetHeight) {
-    //             minetip.style.top = event.pageY - (event.pageY + minetip.offsetHeight - window.innerHeight) + "px";
-    //         } else {
-    //             minetip.style.top = event.pageY - config["data-offset-y"] + "px";
-    //         }
-    //     } else if (event.type == "mouseout") {
-    //         minetip.style.display = "none";
-    //     }
-    // }
+    window.handler_base = 'minetip = event.currentTarget.querySelector("div");if (event.type == "mousemove" || event.type == "mouseover") {minetip.style.display = "block";if (window.innerWidth < event.pageX + config["data-offset-x"] + minetip.offsetWidth) {minetip.style.left = event.pageX - config["data-offset-x"] - minetip.offsetWidth + "px";} else {minetip.style.left = event.pageX + config["data-offset-x"] + "px";}if (window.innerHeight < event.pageY - config["data-offset-y"] + minetip.offsetHeight) {minetip.style.top = event.pageY - (event.pageY + minetip.offsetHeight - window.innerHeight) + "px";} else {minetip.style.top = event.pageY - config["data-offset-y"] + "px";}} else if (event.type == "mouseout") {minetip.style.display = "none";}';
 
     window.default_config_load = {
         "data-img-width": "32px",
@@ -98,6 +64,7 @@ window.addEventListener("load", function () {
                 }
             }
             console.log(window.config_event);
+            let handler = create_handler(window.config_event);
             minetips[j].addEventListener("mouseover", handler);
             minetips[j].addEventListener("mouseout", handler);
             minetips[j].addEventListener("mousemove", handler);
