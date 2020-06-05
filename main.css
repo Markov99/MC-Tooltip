@@ -1,4 +1,4 @@
-/* WIP */
+/* TESTING */
 body {
 	padding: 10%;
 }
@@ -16,6 +16,10 @@ body {
 	font-style: normal;
 }
 
+body {
+	overflow: hidden;
+}
+
 .minetip {
 	font-family: "Minecraft Rus";
 }
@@ -25,12 +29,9 @@ span.minetip img {
 	-ms-interpolation-mode: nearest-neighbor;
 	image-rendering: crisp-edges;
 	image-rendering: pixelated;
-	width: 64px;
-	height: 64px;
 }
 
 span.minetip div {
-	margin-left: 20px;
 	padding: 0.5em;
 	border: 6px solid transparent;
 	border-radius: 12px;
