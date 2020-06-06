@@ -1,6 +1,17 @@
 /*jshint esversion: 6 */
 window.addEventListener("load", function () {
 
+    const default_config_load_img = {
+        "data-img-width": "32px",
+        "data-img-height": "32px",
+        "data-img-alt": "*img*",
+        "data-img-src": "static/img/placeholder.png",
+    };
+    const default_config_event = {
+        "data-offset-x": 20,
+        "data-offset-y": 40,
+    };
+
     function create_handler(config) {
         config["data-offset-x"] = parseInt(config["data-offset-x"]);
         config["data-offset-y"] = parseInt(config["data-offset-y"]);
@@ -12,18 +23,6 @@ window.addEventListener("load", function () {
     }
 
     const handler_base = 'minetip=event.currentTarget.querySelector("div");if(event.type=="mousemove"||event.type=="mouseover"){minetip.style.display="block";if(window.innerWidth<event.pageX+config["data-offset-x"]+minetip.offsetWidth){minetip.style.left=event.pageX-config["data-offset-x"]-minetip.offsetWidth+"px"}else{minetip.style.left=event.pageX+config["data-offset-x"]+"px"}if(window.innerHeight<event.pageY-config["data-offset-y"]+minetip.offsetHeight){minetip.style.top=event.pageY-(event.pageY+minetip.offsetHeight-window.innerHeight)+"px"}else{minetip.style.top=event.pageY-config["data-offset-y"]+"px"}}else if(event.type=="mouseout"){minetip.style.display="none"}';
-
-    const default_config_load_img = {
-        "data-img-width": "32px",
-        "data-img-height": "32px",
-        "data-img-alt": "*image*",
-        "data-img-src": "wip/tooltip-test.png",
-    };
-    const default_config_event = {
-        "data-offset-x": 20,
-        "data-offset-y": 40,
-    };
-
     var a, b, c, d; //counters for loops
     var minetips;
     var config_event = {};
@@ -57,6 +56,9 @@ window.addEventListener("load", function () {
                         config_load_img[d] = default_config_load_img[d];
                     }
                 }
+                console.log(image_attributes);
+                console.log(config_attributes);
+                console.log(config_load_img);
                 for (d in config_load_img) {
                     if (config_load_img.hasOwnProperty(d)) {
                         minetip_images[c].setAttribute(d.replace("data-img-", ""), config_load_img[d]);

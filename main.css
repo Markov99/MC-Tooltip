@@ -1,7 +1,11 @@
 /* TESTING */
 body {
 	padding: 10%;
-	background-image: radial-gradient(circle, #0c643a, #006d6c, #0072ae, #006ade, #7c43d6);
+	/* background-image: radial-gradient(circle, #0c643a, #006d6c, #0072ae, #006ade, #7c43d6); */
+	background-color: #C6C6C6;
+}
+img {
+	border: 4px solid #FFF;
 }
 
 /* MAIN */
@@ -33,15 +37,33 @@ span.minetip img {
 }
 
 span.minetip div {
-	padding: 0.5em;
-	border: 6px solid transparent;
-	border-radius: 12px;
+	/* font-size: 18pt; */
+	/* font-size: xx-large; */
+	font-size: large;
+	/* padding: 0.315em; */
+	padding: 0.31em;
+	border: 7px solid transparent;
+	border-radius: 13px;
 	border-image: url(static/img/tooltip-border.png) 30% repeat;
-	color: #FFF;
+	color: #FCFCFC;
 	background-color: #1E0F1E;
+	/* background-color: rgb(59, 197, 41); */
 	position: absolute;
 	z-index: 999;
 	display: none;
-	opacity: .95;
+	opacity: .935;
 	pointer-events: none;
+	text-shadow: 0.11em 0.11em #303030;
+	word-spacing: 0.2em;
+	line-height: 1.4em;
+
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: -moz-none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+span.minetip div span {
+	vertical-align: top;
 }
