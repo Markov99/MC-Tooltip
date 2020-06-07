@@ -21,7 +21,7 @@ window.addEventListener("load", function () {
                         if (!object.hasOwnProperty(structure[j])) {
                             object[structure[j]] = {};
                         }
-                        object[structure[j]][structure[j+1]] = attributes[k].value;
+                        object[structure[j]][structure[j + 1]] = attributes[k].value;
                     }
                 } else {
                     object[object_k] = attributes[k].value;
@@ -90,13 +90,13 @@ window.addEventListener("load", function () {
             for (let c = 0; c < minetip_images.length; c++) {
                 let image_attributes = minetip_images[c].attributes;
                 let config_load_img = {};
-                for (let d in default_config_load_img) {
+                for (let d in default_config_setup_img) {
                     if (image_attributes.hasOwnProperty(d.replace("data-img-", ""))) {
                         config_load_img[d] = image_attributes[d.replace("data-img-", "")].value;
                     } else if (config_attributes.hasOwnProperty(d)) {
                         config_load_img[d] = config_attributes[d].value;
                     } else {
-                        config_load_img[d] = default_config_load_img[d];
+                        config_load_img[d] = default_config_setup_img[d];
                     }
                 }
                 for (let d in config_load_img) {
@@ -134,18 +134,18 @@ window.addEventListener("load", function () {
         let minetips = document.querySelectorAll(':not(.minetips) > .minetip');
         for (let b = 0; b < minetips.length; b++) {
             let minetip = minetips[b];
-            // console.log(minetip.hasAttribute("data-item-type"));
             if (minetip.hasAttribute("data-item-type")) {
-                console.log(1);
+                let item = attributes2object(minetip, "data-item-");
+                minetip.innerHTML = create_minetip(item, false).innerHTML;
+                setup_minetip(minetip);
             } else {
-                console.log(2);
+                setup_minetip(minetip);
             }
-            // create_minetip(item);
         }
     }
 
     /*---DEFAULT-SETTINGS---*/
-    const default_config_load_img = {
+    const default_config_setup_img = {
         "data-img-width": "32px",
         "data-img-height": "32px",
         "data-img-alt": "*img*",
