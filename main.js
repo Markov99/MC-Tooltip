@@ -8,28 +8,26 @@ window.addEventListener("load", function () {
         return d.firstChild;
     }
 
-    // only for parsing arguments
     function attributes2object(element, prefix_regex, replace_prefix_to = "") {
         let object = {};
         let attributes = element.attributes;
         for (let i = 0; i < attributes.length; i++) {
-
             let k = attributes[i].name;
             if (k.startsWith(prefix_regex)) {
-                // console.log(k);
                 object_k = k.replace(prefix_regex, replace_prefix_to);
-                console.log(object_k);
-                let t = object_k;
-                    
-                console.log(t);
-                object[object_k] = attributes[k].value;
+                structure = object_k.split("-");
+                if (structure.length > 1) {
+                    for (let j = 0; j < structure.length - 1; j++) {
+                        if (!object.hasOwnProperty(structure[j])) {
+                            object[structure[j]] = {};
+                        }
+                        object[structure[j]][structure[j+1]] = attributes[k].value;
+                    }
+                } else {
+                    object[object_k] = attributes[k].value;
+                }
             }
         }
-        // for (let k in attributes) {
-        //     if (element.hasOwnProperty(k)) {
-        //         object[k.replace(prefix_regex, replace_prefix_to)] = attributes[k].value;
-        //     }
-        // }
         return object;
     }
 
@@ -65,7 +63,6 @@ window.addEventListener("load", function () {
 
             minetip.appendChild(img);
             minetip.appendChild(desc);
-            console.log(and_setup);
             if (and_setup) {
                 setup_minetip(minetip);
             }
@@ -126,7 +123,6 @@ window.addEventListener("load", function () {
                     let minetip = minetips[b];
                     if (!minetip.querySelector("div")) {
                         let item = attributes2object(minetip, "data-item-");
-                        console.log(item);
                         minetip.innerHTML = create_minetip(item, false).innerHTML;
                     }
                     setup_minetip(minetip, configs[a]);
@@ -138,7 +134,7 @@ window.addEventListener("load", function () {
         let minetips = document.querySelectorAll(':not(.minetips) > .minetip');
         for (let b = 0; b < minetips.length; b++) {
             let minetip = minetips[b];
-            console.log(minetip.hasAttribute("data-item-type"));
+            // console.log(minetip.hasAttribute("data-item-type"));
             if (minetip.hasAttribute("data-item-type")) {
                 console.log(1);
             } else {
@@ -163,7 +159,7 @@ window.addEventListener("load", function () {
     /*---TEMPLATES---*/
     // Aka item types
     const template = {
-        sword: '<div><span>{{name}}</span><br><br> <span style="color: #A8A8A8; text-shadow: 0.11em 0.11em #292929;">When in main hand:</span><br> <span style="color: #00A800; text-shadow: 0.11em 0.11em #002900;">&nbsp;{{attackspeed}} Attack Speed</span><br> <span style="color: #00A800; text-shadow: 0.11em 0.11em #002900;">&nbsp;{{attackdamage}} Attack Damage</span><br> <span>Durability: {{durability}}/{{durability}}</span><br> <span style="color: #545454; text-shadow: 0.11em 0.11em #151515;">{{id}}</span><br></div>',
+        sword: '<div><span>{{name}}</span><br><br> <span style="color: #A8A8A8; text-shadow: 0.11em 0.11em #292929;">When in main hand:</span><br> <span style="color: #00A800; text-shadow: 0.11em 0.11em #002900;">&nbsp;{{attackspeed}} Attack Speed</span><br> <span style="color: #00A800; text-shadow: 0.11em 0.11em #002900;">&nbsp;{{damage}} Attack Damage</span><br> <span>Durability: {{durability}}/{{durability}}</span><br> <span style="color: #545454; text-shadow: 0.11em 0.11em #151515;">{{id}}</span></div>',
     };
 
     /*---ITEMS---*/
@@ -174,7 +170,7 @@ window.addEventListener("load", function () {
             property: {
                 name: "Obsidian Sword",
                 attackspeed: "1.6",
-                attackdamage: "6",
+                damage: "6",
                 durability: "2341",
                 id: "obsidianstuff:obsidian_sword_item",
             },
@@ -186,7 +182,7 @@ window.addEventListener("load", function () {
                 icon: "my_sword.png", //img src
                 name: "Obsidian Sword",
                 attackspeed: "1.6",
-                attackdamage: "6",
+                damage: "6",
                 durability: "2341",
                 id: "mod_id:my_sword",
             },
