@@ -28,10 +28,15 @@ window.addEventListener("load", function () {
         };
     }
 
-    function setup_element(element) {
-        if (!element.hasAttribute("data-listening")) {
-            let config_attributes = element.parentElement.attributes;
-            let minetip_images = element.querySelectorAll("img");
+    function setup_minetip(minetip, minetips) {
+        if (!minetip.hasAttribute("data-listening")) {
+            let config_attributes;
+            if (minetips) {
+                config_attributes = minetips.attributes;
+            } else {
+                config_attributes = {};
+            }
+            let minetip_images = minetip.querySelectorAll("img");
             let config_event = {};
             for (let c in default_config_event) {
                 if (config_attributes.hasOwnProperty(c)) {
@@ -59,11 +64,10 @@ window.addEventListener("load", function () {
                 }
             }
             let handler = create_handler(config_event);
-            element.addEventListener("mouseover", handler);
-            element.addEventListener("mouseout", handler);
-            element.addEventListener("mousemove", handler);
-            element.setAttribute("data-listening", true);
-
+            minetip.addEventListener("mouseover", handler);
+            minetip.addEventListener("mouseout", handler);
+            minetip.addEventListener("mousemove", handler);
+            minetip.setAttribute("data-listening", true);
         }
     }
 
@@ -73,7 +77,7 @@ window.addEventListener("load", function () {
             if (!configs[a].hasAttribute("data-listening")) {
                 let minetips = configs[a].querySelectorAll("span.minetip");
                 for (let b = 0; b < minetips.length; b++) {
-                    setup_element(minetips[b]);
+                    setup_minetip(minetips[b], configs[a]);
                 }
                 configs[a].setAttribute("data-listening", true);
             }
@@ -82,9 +86,18 @@ window.addEventListener("load", function () {
 
     function create_minetip(item) {
         if (template.hasOwnProperty(item.type)) {
-            let e = apply_template(template[item.type], item.properties);
-            setup_element(e);
-            return e;
+            let minetip = document.createElement('span');
+            minetip.className = "minetip";
+
+            let img = document.createElement('img');
+            img.setAttribute("src", item.icon);
+
+            let desc = apply_template(template[item.type], item.properties);
+
+            minetip.appendChild(img);
+            minetip.appendChild(desc);
+            setup_minetip(minetip);
+            return minetip;
         }
     }
 
@@ -103,15 +116,15 @@ window.addEventListener("load", function () {
     /*---TEMPLATES---*/
     // Aka item types
     const template = {
-        sword: '<span class="minetip"> <img src="{{icon}}"><div> <span>{{name}}</span><br><br> <span style="color: #A8A8A8; text-shadow: 0.11em 0.11em #292929;">When in main hand:</span><br> <span style="color: #00A800; text-shadow: 0.11em 0.11em #002900;">&nbsp;{{attackspeed}} Attack Speed</span><br> <span style="color: #00A800; text-shadow: 0.11em 0.11em #002900;">&nbsp;{{attackdamage}} Attack Damage</span><br> <span>Durability: {{durability}}/{{durability}}</span><br> <span style="color: #545454; text-shadow: 0.11em 0.11em #151515;">{{id}}</span><br></div> </span>',
+        sword: '<div><span>{{name}}</span><br><br> <span style="color: #A8A8A8; text-shadow: 0.11em 0.11em #292929;">When in main hand:</span><br> <span style="color: #00A800; text-shadow: 0.11em 0.11em #002900;">&nbsp;{{attackspeed}} Attack Speed</span><br> <span style="color: #00A800; text-shadow: 0.11em 0.11em #002900;">&nbsp;{{attackdamage}} Attack Damage</span><br> <span>Durability: {{durability}}/{{durability}}</span><br> <span style="color: #545454; text-shadow: 0.11em 0.11em #151515;">{{id}}</span><br></div>',
     };
 
     /*---ITEMS---*/
     const item = {
         obsidian_sword_item: {
             type: "sword",
+            icon: "wip/obsidian_sword_item.png",
             properties: {
-                icon: "wip/obsidian_sword_item.png",
                 name: "Obsidian Sword",
                 attackspeed: "1.6",
                 attackdamage: "6",
