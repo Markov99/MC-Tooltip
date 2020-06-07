@@ -115,10 +115,11 @@ window.addEventListener("load", function () {
 
     function setup_minetips() {
         //inside .minetips
-        let configs = document.querySelectorAll("span.minetips");
+        let configs = document.querySelectorAll(".minetips");
         for (let a = 0; a < configs.length; a++) {
             if (!configs[a].hasAttribute("data-listening")) {
-                let minetips = configs[a].querySelectorAll("span.minetip");
+                let minetips = configs[a].querySelectorAll(".minetip");
+                // console.log(configs[a]);
                 for (let b = 0; b < minetips.length; b++) {
                     let minetip = minetips[b];
                     if (!minetip.querySelector("div")) {
@@ -151,9 +152,12 @@ window.addEventListener("load", function () {
         "data-img-alt": "*img*",
         "data-img-src": "static/img/placeholder.png",
     };
+
     const default_config_event = {
         "data-offset-x": 20,
         "data-offset-y": 40,
+        // "data-offset-x": 16,
+        // "data-offset-y": 36,
     };
 
     /*---TEMPLATES---*/
@@ -189,7 +193,8 @@ window.addEventListener("load", function () {
         },
         */
     };
-    // <span class="minetips" data-offset-x="20" data-offset-y="40" data-img-width="32px" data-img-height="32px"
-    // data-img-alt="*image*" data-img-src="wip/obsidian_sword_item.png">
     setup_minetips();
 });
+// probably i need to create "create_minetips" func, that is for it:
+// <span class="minetips" data-offset-x="20" data-offset-y="40" data-img-width="32px" data-img-height="32px"
+// data-img-alt="*image*" data-img-src="wip/obsidian_sword_item.png">
