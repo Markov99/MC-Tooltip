@@ -8,6 +8,31 @@ window.addEventListener("load", function () {
         return d.firstChild;
     }
 
+    // only for parsing arguments
+    function attributes2object(element, prefix_regex, replace_prefix_to = "") {
+        let object = {};
+        let attributes = element.attributes;
+        for (let i = 0; i < attributes.length; i++) {
+
+            let k = attributes[i].name;
+            if (k.startsWith(prefix_regex)) {
+                // console.log(k);
+                object_k = k.replace(prefix_regex, replace_prefix_to);
+                console.log(object_k);
+                let t = object_k;
+                    
+                console.log(t);
+                object[object_k] = attributes[k].value;
+            }
+        }
+        // for (let k in attributes) {
+        //     if (element.hasOwnProperty(k)) {
+        //         object[k.replace(prefix_regex, replace_prefix_to)] = attributes[k].value;
+        //     }
+        // }
+        return object;
+    }
+
     function apply_template(template_string, parameters_object) {
         for (const k in parameters_object) {
             if (parameters_object.hasOwnProperty(k)) {
@@ -26,6 +51,26 @@ window.addEventListener("load", function () {
             return eval("var config=" + JSON.stringify(config) + ";" + handler_base);
             /* jshint ignore:end */
         };
+    }
+
+    function create_minetip(item, and_setup = true) {
+        if (template.hasOwnProperty(item.type)) {
+            let minetip = document.createElement('span');
+            minetip.className = "minetip";
+
+            let img = document.createElement('img');
+            img.setAttribute("src", item.icon);
+
+            let desc = apply_template(template[item.type], item.property);
+
+            minetip.appendChild(img);
+            minetip.appendChild(desc);
+            console.log(and_setup);
+            if (and_setup) {
+                setup_minetip(minetip);
+            }
+            return minetip;
+        }
     }
 
     function setup_minetip(minetip, minetips) {
@@ -71,33 +116,35 @@ window.addEventListener("load", function () {
         }
     }
 
-    function setup() {
+    function setup_minetips() {
+        //inside .minetips
         let configs = document.querySelectorAll("span.minetips");
         for (let a = 0; a < configs.length; a++) {
             if (!configs[a].hasAttribute("data-listening")) {
                 let minetips = configs[a].querySelectorAll("span.minetip");
                 for (let b = 0; b < minetips.length; b++) {
-                    setup_minetip(minetips[b], configs[a]);
+                    let minetip = minetips[b];
+                    if (!minetip.querySelector("div")) {
+                        let item = attributes2object(minetip, "data-item-");
+                        console.log(item);
+                        minetip.innerHTML = create_minetip(item, false).innerHTML;
+                    }
+                    setup_minetip(minetip, configs[a]);
                 }
                 configs[a].setAttribute("data-listening", true);
             }
         }
-    }
-
-    function create_minetip(item) {
-        if (template.hasOwnProperty(item.type)) {
-            let minetip = document.createElement('span');
-            minetip.className = "minetip";
-
-            let img = document.createElement('img');
-            img.setAttribute("src", item.icon);
-
-            let desc = apply_template(template[item.type], item.properties);
-
-            minetip.appendChild(img);
-            minetip.appendChild(desc);
-            setup_minetip(minetip);
-            return minetip;
+        //outside .minetips   
+        let minetips = document.querySelectorAll(':not(.minetips) > .minetip');
+        for (let b = 0; b < minetips.length; b++) {
+            let minetip = minetips[b];
+            console.log(minetip.hasAttribute("data-item-type"));
+            if (minetip.hasAttribute("data-item-type")) {
+                console.log(1);
+            } else {
+                console.log(2);
+            }
+            // create_minetip(item);
         }
     }
 
@@ -124,7 +171,7 @@ window.addEventListener("load", function () {
         obsidian_sword_item: {
             type: "sword",
             icon: "wip/obsidian_sword_item.png",
-            properties: {
+            property: {
                 name: "Obsidian Sword",
                 attackspeed: "1.6",
                 attackdamage: "6",
@@ -135,7 +182,7 @@ window.addEventListener("load", function () {
         /*
         my_sword: {
             type: "sword", //template
-            properties: {
+            property: {
                 icon: "my_sword.png", //img src
                 name: "Obsidian Sword",
                 attackspeed: "1.6",
@@ -146,12 +193,7 @@ window.addEventListener("load", function () {
         },
         */
     };
-
-    let t = create_minetip(item.obsidian_sword_item);
-    document.body.append(t);
-    // console.log(t);
-
     // <span class="minetips" data-offset-x="20" data-offset-y="40" data-img-width="32px" data-img-height="32px"
     // data-img-alt="*image*" data-img-src="wip/obsidian_sword_item.png">
-    setup();
+    setup_minetips();
 });
