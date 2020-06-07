@@ -30,13 +30,13 @@ body {
 }
 
 
-span.minetip img {
+.minetip img {
 	-ms-interpolation-mode: nearest-neighbor;
 	image-rendering: crisp-edges;
 	image-rendering: pixelated;
 }
 
-span.minetip div {
+.minetip div {
 	/* font-size: 18pt; */
 	/* font-size: xx-large; */
 	font-size: large;
@@ -64,6 +64,6 @@ span.minetip div {
 	user-select: none;
 }
 
-span.minetip div span {
+.minetip div span {
 	vertical-align: top;
 }
