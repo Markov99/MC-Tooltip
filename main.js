@@ -66,49 +66,64 @@ window.addEventListener("load", function () {
         };
     }
 
-    function on_create_handler(event) {
+    // sets settings
+    // adds event listeners
+    function setup_er() {
         let configs = document.querySelectorAll("span.minetips");
         for (let a = 0; a < configs.length; a++) {
-            let minetips = configs[a].querySelectorAll("span.minetip");
-            for (let b = 0; b < minetips.length; b++) {
-                let config_attributes = minetips[b].parentElement.attributes;
-                let minetip_images = minetips[b].querySelectorAll("img");
-                let config_event = {};
-                for (let c in default_config_event) {
-                    if (config_attributes.hasOwnProperty(c)) {
-                        config_event[c] = config_attributes[c].value;
-                    } else {
-                        config_event[c] = default_config_event[c];
+            if (!configs[a].hasAttribute("data-listening")) {
+                let minetips = configs[a].querySelectorAll("span.minetip");
+                for (let b = 0; b < minetips.length; b++) {
+                    if (!minetips[b].hasAttribute("data-listening")) {
+                        let config_attributes = minetips[b].parentElement.attributes;
+                        let minetip_images = minetips[b].querySelectorAll("img");
+                        let config_event = {};
+                        for (let c in default_config_event) {
+                            if (config_attributes.hasOwnProperty(c)) {
+                                config_event[c] = config_attributes[c].value;
+                            } else {
+                                config_event[c] = default_config_event[c];
+                            }
+                        }
+                        for (let c = 0; c < minetip_images.length; c++) {
+                            let image_attributes = minetip_images[c].attributes;
+                            let config_load_img = {};
+                            for (let d in default_config_load_img) {
+                                if (image_attributes.hasOwnProperty(d.replace("data-img-", ""))) {
+                                    config_load_img[d] = image_attributes[d.replace("data-img-", "")].value;
+                                } else if (config_attributes.hasOwnProperty(d)) {
+                                    config_load_img[d] = config_attributes[d].value;
+                                } else {
+                                    config_load_img[d] = default_config_load_img[d];
+                                }
+                            }
+                            for (let d in config_load_img) {
+                                if (config_load_img.hasOwnProperty(d)) {
+                                    minetip_images[c].setAttribute(d.replace("data-img-", ""), config_load_img[d]);
+                                }
+                            }
+                        }
+                        let handler = create_handler(config_event);
+                        minetips[b].addEventListener("mouseover", handler);
+                        minetips[b].addEventListener("mouseout", handler);
+                        minetips[b].addEventListener("mousemove", handler);
+                        minetips[b].setAttribute("data-listening", true);
                     }
                 }
-                for (let c = 0; c < minetip_images.length; c++) {
-                    let image_attributes = minetip_images[c].attributes;
-                    let config_load_img = {};
-                    for (let d in default_config_load_img) {
-                        if (image_attributes.hasOwnProperty(d.replace("data-img-", ""))) {
-                            config_load_img[d] = image_attributes[d.replace("data-img-", "")].value;
-                        } else if (config_attributes.hasOwnProperty(d)) {
-                            config_load_img[d] = config_attributes[d].value;
-                        } else {
-                            config_load_img[d] = default_config_load_img[d];
-                        }
-                    }
-                    for (let d in config_load_img) {
-                        if (config_load_img.hasOwnProperty(d)) {
-                            minetip_images[c].setAttribute(d.replace("data-img-", ""), config_load_img[d]);
-                        }
-                    }
-                }
-                let handler = create_handler(config_event);
-                minetips[b].addEventListener("mouseover", handler);
-                minetips[b].addEventListener("mouseout", handler);
-                minetips[b].addEventListener("mousemove", handler);
+                configs[a].setAttribute("data-listening", true);
             }
         }
     }
-    on_create_handler("");
+    // set_upper();
+    // for (let a = 0; a < 1000; a++) {
+    //     set_upper();
+    // }
 
-    
+    // let t = '<div style="font-size: xx-large;">test div</div>';
+    // document.body.append(string2element(t));
+
+
+    setup_er();
 });
 
 
