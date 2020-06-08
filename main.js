@@ -34,7 +34,7 @@ window.addEventListener("load", function () {
     function apply_template(template_string, parameters_object) {
         for (const k in parameters_object) {
             if (parameters_object.hasOwnProperty(k)) {
-                template_string = template_string.replace("/{{k}}/g".replace("k", k), parameters_object[k]);
+                template_string = template_string.split("{{k}}".replace("k", k)).join(parameters_object[k]);
             }
         }
         return string2element(template_string);
