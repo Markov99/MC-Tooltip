@@ -39,17 +39,17 @@ body {
 	overflow: hidden;
 }
 
-.minetip {
+.mctooltip {
 	font-family: "Minecraft Rus";
 }
 
-.minetip img {
+.mctooltip img {
 	-ms-interpolation-mode: nearest-neighbor;
 	image-rendering: crisp-edges;
 	image-rendering: pixelated;
 }
 
-.minetip div {
+.mctooltip div {
 	/* font-size: 18pt; */
 	/* font-size: xx-large; */
 	font-size: large;
@@ -77,6 +77,6 @@ body {
 	user-select: none;
 }
 
-.minetip div span {
+.mctooltip div span {
 	vertical-align: top;
 }

@@ -41,7 +41,7 @@ window.addEventListener("load", function () {
     }
 
     function create_handler(config) {
-        const handler_base = 'minetip=event.currentTarget.querySelector("div");if(event.type=="mousemove"||event.type=="mouseover"){minetip.style.display="block";if(window.innerWidth<event.pageX+config["data-offset-x"]+minetip.offsetWidth){minetip.style.left=event.pageX-config["data-offset-x"]-minetip.offsetWidth+"px"}else{minetip.style.left=event.pageX+config["data-offset-x"]+"px"}if(window.innerHeight<event.pageY-config["data-offset-y"]+minetip.offsetHeight){minetip.style.top=event.pageY-(event.pageY+minetip.offsetHeight-window.innerHeight)+"px"}else{minetip.style.top=event.pageY-config["data-offset-y"]+"px"}}else if(event.type=="mouseout"){minetip.style.display="none"}';
+        const handler_base = 'mctooltip=event.currentTarget.querySelector("div");if(event.type=="mousemove"||event.type=="mouseover"){mctooltip.style.display="block";if(window.innerWidth<event.pageX+config["data-offset-x"]+mctooltip.offsetWidth){mctooltip.style.left=event.pageX-config["data-offset-x"]-mctooltip.offsetWidth+"px"}else{mctooltip.style.left=event.pageX+config["data-offset-x"]+"px"}if(window.innerHeight<event.pageY-config["data-offset-y"]+mctooltip.offsetHeight){mctooltip.style.top=event.pageY-(event.pageY+mctooltip.offsetHeight-window.innerHeight)+"px"}else{mctooltip.style.top=event.pageY-config["data-offset-y"]+"px"}}else if(event.type=="mouseout"){mctooltip.style.display="none"}';
         config["data-offset-x"] = parseInt(config["data-offset-x"]);
         config["data-offset-y"] = parseInt(config["data-offset-y"]);
         return function (event) {
@@ -51,34 +51,34 @@ window.addEventListener("load", function () {
         };
     }
 
-    function create_minetip(item, and_setup = true) {
+    function create_mctooltip(item, and_setup = true) {
         if (template.hasOwnProperty(item.type)) {
-            let minetip = document.createElement('span');
-            minetip.className = "minetip";
+            let mctooltip = document.createElement('span');
+            mctooltip.className = "mctooltip";
 
             let img = document.createElement('img');
             img.setAttribute("src", item.icon);
 
             let desc = apply_template(template[item.type], item.property);
 
-            minetip.appendChild(img);
-            minetip.appendChild(desc);
+            mctooltip.appendChild(img);
+            mctooltip.appendChild(desc);
             if (and_setup) {
-                setup_minetip(minetip);
+                setup_mctooltip(mctooltip);
             }
-            return minetip;
+            return mctooltip;
         }
     }
 
-    function setup_minetip(minetip, minetips) {
-        if (!minetip.hasAttribute("data-listening")) {
+    function setup_mctooltip(mctooltip, mctooltips) {
+        if (!mctooltip.hasAttribute("data-listening")) {
             let config_attributes;
-            if (minetips) {
-                config_attributes = minetips.attributes;
+            if (mctooltips) {
+                config_attributes = mctooltips.attributes;
             } else {
                 config_attributes = {};
             }
-            let minetip_images = minetip.querySelectorAll("img");
+            let mctooltip_images = mctooltip.querySelectorAll("img");
             let config_event = {};
             for (let c in default_config_event) {
                 if (config_attributes.hasOwnProperty(c)) {
@@ -87,8 +87,8 @@ window.addEventListener("load", function () {
                     config_event[c] = default_config_event[c];
                 }
             }
-            for (let c = 0; c < minetip_images.length; c++) {
-                let image_attributes = minetip_images[c].attributes;
+            for (let c = 0; c < mctooltip_images.length; c++) {
+                let image_attributes = mctooltip_images[c].attributes;
                 let config_load_img = {};
                 for (let d in default_config_setup_img) {
                     if (image_attributes.hasOwnProperty(d.replace("data-img-", ""))) {
@@ -101,46 +101,45 @@ window.addEventListener("load", function () {
                 }
                 for (let d in config_load_img) {
                     if (config_load_img.hasOwnProperty(d)) {
-                        minetip_images[c].setAttribute(d.replace("data-img-", ""), config_load_img[d]);
+                        mctooltip_images[c].setAttribute(d.replace("data-img-", ""), config_load_img[d]);
                     }
                 }
             }
             let handler = create_handler(config_event);
-            minetip.addEventListener("mouseover", handler);
-            minetip.addEventListener("mouseout", handler);
-            minetip.addEventListener("mousemove", handler);
-            minetip.setAttribute("data-listening", true);
+            mctooltip.addEventListener("mouseover", handler);
+            mctooltip.addEventListener("mouseout", handler);
+            mctooltip.addEventListener("mousemove", handler);
+            mctooltip.setAttribute("data-listening", true);
         }
     }
 
-    function setup_minetips() {
-        //inside .minetips
-        let configs = document.querySelectorAll(".minetips");
+    function setup_mctooltips() {
+        //inside .mctooltips
+        let configs = document.querySelectorAll(".mctooltips");
         for (let a = 0; a < configs.length; a++) {
             if (!configs[a].hasAttribute("data-listening")) {
-                let minetips = configs[a].querySelectorAll(".minetip");
-                // console.log(configs[a]);
-                for (let b = 0; b < minetips.length; b++) {
-                    let minetip = minetips[b];
-                    if (!minetip.querySelector("div")) {
-                        let item = attributes2object(minetip, "data-item-");
-                        minetip.innerHTML = create_minetip(item, false).innerHTML;
+                let mctooltips = configs[a].querySelectorAll(".mctooltip");
+                for (let b = 0; b < mctooltips.length; b++) {
+                    let mctooltip = mctooltips[b];
+                    if (!mctooltip.querySelector("div")) {
+                        let item = attributes2object(mctooltip, "data-item-");
+                        mctooltip.innerHTML = create_mctooltip(item, false).innerHTML;
                     }
-                    setup_minetip(minetip, configs[a]);
+                    setup_mctooltip(mctooltip, configs[a]);
                 }
                 configs[a].setAttribute("data-listening", true);
             }
         }
-        //outside .minetips   
-        let minetips = document.querySelectorAll(':not(.minetips) > .minetip');
-        for (let b = 0; b < minetips.length; b++) {
-            let minetip = minetips[b];
-            if (minetip.hasAttribute("data-item-type")) {
-                let item = attributes2object(minetip, "data-item-");
-                minetip.innerHTML = create_minetip(item, false).innerHTML;
-                setup_minetip(minetip);
+        //outside .mctooltips   
+        let mctooltips = document.querySelectorAll(':not(.mctooltips) > .mctooltip');
+        for (let b = 0; b < mctooltips.length; b++) {
+            let mctooltip = mctooltips[b];
+            if (mctooltip.hasAttribute("data-item-type")) {
+                let item = attributes2object(mctooltip, "data-item-");
+                mctooltip.innerHTML = create_mctooltip(item, false).innerHTML;
+                setup_mctooltip(mctooltip);
             } else {
-                setup_minetip(minetip);
+                setup_mctooltip(mctooltip);
             }
         }
     }
@@ -193,8 +192,8 @@ window.addEventListener("load", function () {
         },
         */
     };
-    setup_minetips();
+    setup_mctooltips();
 });
-// probably i need to create "create_minetips" func, that is for it:
-// <span class="minetips" data-offset-x="20" data-offset-y="40" data-img-width="32px" data-img-height="32px"
+// probably i need to create "create_mctooltips" func, that is for it:
+// <span class="mctooltips" data-offset-x="20" data-offset-y="40" data-img-width="32px" data-img-height="32px"
 // data-img-alt="*image*" data-img-src="wip/obsidian_sword_item.png">
