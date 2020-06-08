@@ -162,18 +162,17 @@ window.addEventListener("load", function () {
     /*---TEMPLATES---*/
     // Aka item types
     const template = {
-        sword: '<div><span>{{name}}</span><br><br> <span style="color: #A8A8A8; text-shadow: 0.11em 0.11em #292929;">When in main hand:</span><br> <span style="color: #00A800; text-shadow: 0.11em 0.11em #002900;">&nbsp;{{attackspeed}} Attack Speed</span><br> <span style="color: #00A800; text-shadow: 0.11em 0.11em #002900;">&nbsp;{{damage}} Attack Damage</span><br> <span>Durability: {{durability}}/{{durability}}</span><br> <span style="color: #545454; text-shadow: 0.11em 0.11em #151515;">{{id}}</span></div>',
+        tool: '<div><span>{{name}}</span><br><br> <span style="color: #A8A8A8; text-shadow: 0.11em 0.11em #292929;">When in main hand:</span><br> <span style="color: #00A800; text-shadow: 0.11em 0.11em #002900;">&nbsp;{{attackspeed}} Attack Speed</span><br> <span style="color: #00A800; text-shadow: 0.11em 0.11em #002900;">&nbsp;{{damage}} Attack Damage</span><br> <span>Durability: {{durability}}/{{durability}}</span><br> <span style="color: #545454; text-shadow: 0.11em 0.11em #151515;">{{id}}</span></div>',
         helmet: '<div> <span>{{name}}</span><br><br> <span style="color: #A8A8A8; text-shadow: 0.11em 0.11em #292929;">When on head:</span><br> <span style="color: #5454FC; text-shadow: 0.11em 0.11em #15153E;">&nbsp;+{{armortoughness}} Armor Toughness</span><br> <span style="color: #5454FC; text-shadow: 0.11em 0.11em #15153E;">&nbsp;+{{armor}} Armor</span><br> <span>Durability: {{durability}}/{{durability}}</span><br> <span style="color: #545454; text-shadow: 0.11em 0.11em #151515;">{{id}}</span><br></div>',
         chestplate: '<div> <span>{{name}}</span><br><br> <span style="color: #A8A8A8; text-shadow: 0.11em 0.11em #292929;">When on body:</span><br> <span style="color: #5454FC; text-shadow: 0.11em 0.11em #15153E;">&nbsp;+{{armortoughness}} Armor Toughness</span><br> <span style="color: #5454FC; text-shadow: 0.11em 0.11em #15153E;">&nbsp;+{{armor}} Armor</span><br> <span>Durability: {{durability}}/{{durability}}</span><br> <span style="color: #545454; text-shadow: 0.11em 0.11em #151515;">{{id}}</span><br></div>',
         leggings: '<div> <span>{{name}}</span><br><br> <span style="color: #A8A8A8; text-shadow: 0.11em 0.11em #292929;">When on legs:</span><br> <span style="color: #5454FC; text-shadow: 0.11em 0.11em #15153E;">&nbsp;+{{armortoughness}} Armor Toughness</span><br> <span style="color: #5454FC; text-shadow: 0.11em 0.11em #15153E;">&nbsp;+{{armor}} Armor</span><br> <span>Durability: {{durability}}/{{durability}}</span><br> <span style="color: #545454; text-shadow: 0.11em 0.11em #151515;">{{id}}</span><br></div>',
-        boots: '<div> <span>{{name}}</span><br><br> <span style="color: #A8A8A8; text-shadow: 0.11em 0.11em #292929;">When on feet:</span><br> <span style="color: #5454FC; text-shadow: 0.11em 0.11em #15153E;">&nbsp;+{{armortoughness}} Armor Toughness</span><br> <span style="color: #5454FC; text-shadow: 0.11em 0.11em #15153E;">&nbsp;+{{armor}} Armor</span><br> <span>Durability: {{durability}}/{{durability}}</span><br> <span style="color: #545454; text-shadow: 0.11em 0.11em #151515;">{{id}}</span><br></div>',
-        
+        boots: '<div> <span>{{name}}</span><br><br> <span style="color: #A8A8A8; text-shadow: 0.11em 0.11em #292929;">When on feet:</span><br> <span style="color: #5454FC; text-shadow: 0.11em 0.11em #15153E;">&nbsp;+{{armortoughness}} Armor Toughness</span><br> <span style="color: #5454FC; text-shadow: 0.11em 0.11em #15153E;">&nbsp;+{{armor}} Armor</span><br> <span>Durability: {{durability}}/{{durability}}</span><br> <span style="color: #545454; text-shadow: 0.11em 0.11em #151515;">{{id}}</span><br></div>', 
     };
 
     /*---ITEMS---*/
     const item = {
         obsidian_sword_item: {
-            type: "sword",
+            type: "tool",
             icon: "wip/obsidian_sword_item.png",
             property: {
                 name: "Obsidian Sword",
@@ -185,7 +184,7 @@ window.addEventListener("load", function () {
         },
         /*
         my_sword: {
-            type: "sword", //template
+            type: "tool", //template
             property: {
                 icon: "my_sword.png", //img src
                 name: "Obsidian Sword",
